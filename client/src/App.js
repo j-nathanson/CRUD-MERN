@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const [foodName, setFoodName] = useState('')
+  const [days, setDays] = useState(0)
+
+  const addToList = () => {
+    console.log(foodName, days)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>CRUD APP with MERN</h1>
+
+      <label htmlFor="">Food Name</label>
+      <input type="text" onChange={(e) => { setFoodName(e.target.value) }} />
+      <label htmlFor="">Days since Eaten</label>
+      <input type="number" name="" id="" onChange={(e) => { setDays(e.target.value) }} />
+      <button onClick={addToList}>Add To List</button>
     </div>
   );
 }
