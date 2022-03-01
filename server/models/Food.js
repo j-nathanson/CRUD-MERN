@@ -1,0 +1,17 @@
+const mongoose = require('mongoose')
+
+// create schema
+const FoodSchema = new mongoose.Schema({
+    foodName: {
+        type: String,
+        required: true
+    },
+    daysSinceIAte: {
+        type: Number,
+        required: true
+
+    }
+})
+
+const Food = mongoose.model("FoodData", FoodSchema)
+module.exports = Food
