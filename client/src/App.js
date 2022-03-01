@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Axios from 'axios'
 import './App.css';
 
 function App() {
@@ -7,8 +8,12 @@ function App() {
   const [days, setDays] = useState(0)
 
   const addToList = () => {
-    console.log(foodName, days)
+    // make a post to request to this directory with and object 
+    // will be sent as JSON and then parsed by the backend server
+    Axios.post("http://localhost:3001/insert", { foodName, days })
   }
+
+
   return (
     <div className="App">
       <h1>CRUD APP with MERN</h1>
