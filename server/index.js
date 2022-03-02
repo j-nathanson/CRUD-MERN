@@ -23,7 +23,6 @@ mongoose.connect('mongodb+srv://newuser:uxGmF423mwI4WKcf@crud.r0dg1.mongodb.net/
 
 // listen for the POST'/insert request
 app.post('/insert', async (req, res) => {
-
     // after parsing from JSON store inputted values
     const foodName = req.body.foodName;
     const days = req.body.days;
@@ -40,8 +39,18 @@ app.post('/insert', async (req, res) => {
     } catch (err) {
         console.log(err)
     }
+})
 
+// display all of our data
+app.get('/read', async (req, res) => {
+    // return everything from our database
+    FoodModel.find({}, (err, result) => {
+        if (err) {
+            res.send(err)
+        }
 
+        res.send(result)
+    })
 })
 
 
