@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Axios from 'axios'
 import './App.css';
 
@@ -8,11 +8,14 @@ function App() {
   const [foodName, setFoodName] = useState('')
   const [days, setDays] = useState(0)
   const [newFoodName, setNewFoodName] = useState('')
+  const [didUpdate, setDidUpdate] = useState(false)
 
   // array recieved from the server will have '.foodName, daysSinceIAte' properties
   const [foodList, setFoodList] = useState([])
 
   const addToList = () => {
+
+    foodList.push({})
     // make a post to request to this directory with and object 
     // will be sent as JSON and then parsed by the backend server
     Axios.post("http://localhost:3001/insert", { foodName, days })
@@ -20,6 +23,7 @@ function App() {
 
   // PUT attempt update the foodName
   const updateFood = (id) => {
+    setDidUpdate(!didUpdate);
     Axios.put("http://localhost:3001/update", {
       id: id,
       newFoodName: newFoodName
@@ -40,11 +44,22 @@ function App() {
   // make a GET request on the server to get data
   // then update the foodList variable from values from the server
   // 
+
+  //  React.useEffect(() => {
+  //   if (didMount.current) {
+  //     console.log('I run only if toggle changes.');
+  //   } else {
+  //     didMount.current = true;
+  //   }
+  // }, [toggle]);
+
+
+
   useEffect(() => {
     Axios.get("http://localhost:3001/read").then(response => {
       setFoodList(response.data)
     })
-  }, [])
+  }, [didUpdate])
 
   return (
     <div className="App">
