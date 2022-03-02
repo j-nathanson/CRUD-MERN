@@ -26,6 +26,15 @@ function App() {
     })
   }
 
+  // DELETE food local api req check quotes
+  const deleteFood = (id) => {
+    try {
+      Axios.delete(`http://localhost:3001/delete/${id}`)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
 
   // call whenever we render the page but is only called once
   // make a GET request on the server to get data
@@ -56,7 +65,7 @@ function App() {
             <h1>Last Ate {val.daysSinceIAte} Days Ago</h1>
             <input type="text" placeholder='New Food Name..?' onChange={(e) => setNewFoodName(e.target.value)} />
             <button onClick={() => updateFood(val._id)}>Update</button>
-            <button>Delete</button>
+            <button onClick={() => deleteFood(val._id)}>Delete</button>
           </div>
         )
       })}

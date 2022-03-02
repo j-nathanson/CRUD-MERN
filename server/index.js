@@ -6,6 +6,8 @@ const app = express()
 
 
 
+
+
 // import model
 const FoodModel = require('./models/Food')
 const { updateOne } = require('./models/Food')
@@ -17,9 +19,10 @@ app.use(express.json())
 // cors allows use to communicate with API's we create
 app.use(cors())
 
-// connect to cloud server throwaway password. 
+// connect to cloud server throwaway password. config
 mongoose.connect('mongodb+srv://newuser:uxGmF423mwI4WKcf@crud.r0dg1.mongodb.net/food?retryWrites=true&w=majority', {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
 
 // listen for the POST'/insert request
@@ -49,14 +52,22 @@ app.put('/update', async (req, res) => {
     const id = req.body.id;
     const newFoodName = req.body.newFoodName;
 
-    console.log(id, newFoodName)
+
     // database client
     try {
         await FoodModel.findById(id, (err, updatedFood) => {
             updatedFood.foodName = newFoodName
             updatedFood.save()
             res.send('update')
+            console.log(updatedFood)
         })
+
+        // await FoodModel.findByIdAndUpdate(id, { foodName: newFoodName }, err => {
+        //     if (err) {
+        //         console.log(err)
+        //     }
+        // })
+
     } catch (err) {
         console.log(err)
     }
@@ -74,6 +85,29 @@ app.get('/read', async (req, res) => {
     })
 })
 
+
+app.get('/delete/1', async (req, res) => {
+    FoodModel.find({}, (err, result) => {
+        if (err) {
+            res.send(err)
+        }
+
+        res.send(result)
+    })
+})
+
+// DELETE
+app.delete('/delete/:id', async (req, res) => {
+    const id = req.params.id
+
+    try {
+        await FoodModel.findByIdAndRemove(id)
+    }
+    catch (err) {
+        console.log(err)
+    }
+    res.send("delete")
+})
 
 app.listen(3001, () => {
     console.log('Server running on port 3001');
