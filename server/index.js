@@ -8,6 +8,7 @@ const app = express()
 
 // import model
 const FoodModel = require('./models/Food')
+const { updateOne } = require('./models/Food')
 
 app.use(morgan('tiny'))
 // puts parsed data in req.body.
@@ -36,6 +37,26 @@ app.post('/insert', async (req, res) => {
         // attempt to save food to the collection
         await food.save();
         res.send('inserted data')
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+// listen for the PUT'/update request
+// find item in db by id and change the property that is saved in the db
+app.put('/update', async (req, res) => {
+
+    const id = req.body.id;
+    const newFoodName = req.body.newFoodName;
+
+    console.log(id, newFoodName)
+    // database client
+    try {
+        await FoodModel.findById(id, (err, updatedFood) => {
+            updatedFood.foodName = newFoodName
+            updatedFood.save()
+            res.send('update')
+        })
     } catch (err) {
         console.log(err)
     }

@@ -55,7 +55,7 @@ function App() {
             <h1>Food Item: {val.foodName}</h1>
             <h1>Last Ate {val.daysSinceIAte} Days Ago</h1>
             <input type="text" placeholder='New Food Name..?' onChange={(e) => setNewFoodName(e.target.value)} />
-            <button onClick={updateFood(val._id)}>Update</button>
+            <button onClick={() => updateFood(val._id)}>Update</button>
             <button>Delete</button>
           </div>
         )
