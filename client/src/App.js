@@ -38,7 +38,7 @@ function App() {
       <h1>food List</h1>
       {foodList.map((val, key) => {
         return (
-          <div>
+          <div key={key}>
             <h1>Food Item: {val.foodName}</h1>
             <h1>Last Ate {val.daysSinceIAte} Days Ago</h1>
           </div>
