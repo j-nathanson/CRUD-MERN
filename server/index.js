@@ -1,7 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const mongooseKey = require('../keys')
+const mongoKey = require('../keys')
 const cors = require('cors')
 const app = express()
 
@@ -21,7 +21,7 @@ app.use(express.json())
 app.use(cors())
 
 // connect to cloud server set config
-mongoose.connect(`mongodb+srv://newuser:${mongooseKey}@crud.r0dg1.mongodb.net/food?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb+srv://newuser:${mongoKey}@crud.r0dg1.mongodb.net/food?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
