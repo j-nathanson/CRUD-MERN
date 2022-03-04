@@ -8,7 +8,7 @@ function App() {
   const [foodName, setFoodName] = useState('')
   const [days, setDays] = useState(0)
   const [newFoodName, setNewFoodName] = useState('')
-  const [didUpdate, setDidUpdate] = useState(false)
+
 
   // array recieved from the server will have '.foodName, daysSinceIAte' properties
   const [foodList, setFoodList] = useState([])
@@ -23,7 +23,6 @@ function App() {
 
   // PUT attempt update the foodName
   const updateFood = (id) => {
-    setDidUpdate(!didUpdate);
     Axios.put("http://localhost:3001/update", {
       id: id,
       newFoodName: newFoodName
@@ -59,7 +58,7 @@ function App() {
     Axios.get("http://localhost:3001/read").then(response => {
       setFoodList(response.data)
     })
-  }, [didUpdate])
+  }, [])
 
   return (
     <div className="App">

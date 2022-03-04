@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const mongooseKey = require('../keys')
 const cors = require('cors')
 const app = express()
 
@@ -19,8 +20,8 @@ app.use(express.json())
 // cors allows use to communicate with API's we create
 app.use(cors())
 
-// connect to cloud server throwaway password. config
-mongoose.connect('mongodb+srv://newuser:uxGmF423mwI4WKcf@crud.r0dg1.mongodb.net/food?retryWrites=true&w=majority', {
+// connect to cloud server set config
+mongoose.connect(`mongodb+srv://newuser:${mongooseKey}@crud.r0dg1.mongodb.net/food?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -85,16 +86,6 @@ app.get('/read', async (req, res) => {
     })
 })
 
-
-app.get('/delete/1', async (req, res) => {
-    FoodModel.find({}, (err, result) => {
-        if (err) {
-            res.send(err)
-        }
-
-        res.send(result)
-    })
-})
 
 // DELETE
 app.delete('/delete/:id', async (req, res) => {
